@@ -5,7 +5,7 @@
     ;public	?cinit,?ci,?co,?cist,?cost
     public @ctbl
     extrn @isrtbl 				;isrtbl.asm
-	extrn ?vdpinit,?vdputc		;vdp.asm
+    extrn ?vdpinit,?vdputc			;vdp.asm
 	
     maclib syscfg
     maclib modebaud

@@ -4,12 +4,14 @@ true equ -1
 false equ not true
 
 	;public	?ldccp,?rlccp,?time
-	extrn	?pmsg,?conin,?sldsk, ?paread, ?pawrite
+	extrn	?pmsg,?conin,?sldsk
+	;extern	paread
+	;extern	pawrite
 	extrn	@civec,@covec,@aivec,@aovec,@lovec,@scbbase,@dtbl
 	extrn 	@dma, @sect
 
 	extrn ?cinit			; (re)initialize device in <C>
-	extrn painit			; CF drive
+	extrn pa$init			; CF drive
 	extrn ?irqinit			; Init interrupts
 	maclib syscfg
 	maclib utils
@@ -35,7 +37,7 @@ false equ not true
 
 ;Check for PATA drive
 	PRINT 'Looking for hard drive... '
-	call painit
+	call pa$init
 	;a=0: HD found, a=1: HD not found or HD error
 	or a! jp nz,no$hd
 	PRINTLN 'found.'

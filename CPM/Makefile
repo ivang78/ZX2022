@@ -6,7 +6,7 @@ LINK=../bin/drilink.exe
 ZMAC=../bin/zmac.exe  --rel --dri --od ./
 RUN=../bin/romldr.exe
 
-RM=del -f
+RM=cmd //C del -f
 CP=copy 
 
 BDOS_SOURCES= CPMBDOS1.ASM CONBDOS.ASM BDOS30.ASM
@@ -18,7 +18,7 @@ cpm3.sys: bdos3.spr bios3.spr gencpm.dat
 	@echo *
 
 rom.img: cpm3.sys bootldr.com
-	copy /b bootldr.com+cpm3.sys rom.img	
+	cmd /C copy /b bootldr.com+cpm3.sys rom.img	
 
 bootldr.com: bootldr.asm syscfg.lib
 	$(ZMAC) bootldr.asm

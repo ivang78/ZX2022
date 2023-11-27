@@ -63,7 +63,7 @@ lf	equ 10
 ldn equ 2 ; Lowest drive number in @adrv for drives 2: drive c
 
 ; Disk drive dispatching tables for linked BIOS
-	public	pata0,painit
+	public	pata0,pa$init
 
 ; Variables containing parameters passed by BDOS
 	extrn	@adrv,@rdrv,@dma,@trk,@sect,@dbnk
@@ -104,6 +104,7 @@ dpb$pata ;Disk Parameter Block
 	db	7,127 ;bsh,blm for 16384 bytes blocks - block shift and mask
 	db	7 ;exm - extent mask
 	dw	03ffh ;dsm - highest block number, number of blocks - 1
+	;dw	0ffh ;dsm - highest block number, number of blocks - 1 (255 blocks * 16384 bytes = 4 megabyte) 
 	dw	511  ;drm - maximum directory entry number
 	db	080h,0  ;al0,al1 - alloc vector for directory
 	dw	08000h ;cks - checksum size 08000h permanently mounted
@@ -112,10 +113,10 @@ dpb$pata ;Disk Parameter Block
 
 ; Extended Disk Parameter Headers (XDPHs)
 xdph:
-	dw	pawrite
-	dw	paread
+	dw	pa$write
+	dw	pa$read
 	dw	pa$login
-	dw	painit
+	dw	pa$init
 	db	0,0		; unit, type
 pata0:	;Disk Parameter Header (DPH)
 	DPH  0, dpb$pata, 0
@@ -123,7 +124,7 @@ pata0:	;Disk Parameter Header (DPH)
 ;dseg
 ; Init routine called by bootloader.
 ; returns a=0 on success, a=1 otherwise
-painit:
+pa$init:
 	mvi c, DRDY! lxi h, no$hd! call wait$sr 
 	ora a! rnz ;If this went wrong
  	;PRINTLN 'PATA: Drive ready'
@@ -162,7 +163,7 @@ pa$login:
 
 
 ; Bios read function
-paread:
+pa$read:
 	OFFSET
 	lhld @sect
 	add l ;offset for selected drive
@@ -194,7 +195,7 @@ paread:
 	ret
 
 ; write function
-pawrite
+pa$write
 	OFFSET
 	lhld @sect
 	add l ;offset for selected drive
