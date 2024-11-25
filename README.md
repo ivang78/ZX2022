@@ -3,10 +3,10 @@ Yet another homebuilt Z80 Computer, but this one works without any FPGAs or Micr
 In contrast to its predecessor, the ZX2020, this one uses a 32 kilobyte EE Prom to reliably store the CP/M BDOS and BIOS. Furthermore a PS/2, or  PS/2 compatible USB keyboard can be connected. With an optional TMS99x8 based video card, a  TV or monitor can also be used. This repository contains gerber files for both the ZX2022 and the video  card. So it can now be easily replicated.
 
 ## Features
-- Zilog Z80 processor @6MHz, higher clock rates might also work.
+- Zilog Z80 processor @7.3728MHz, higher clock rates might also work.
 - 128 Kilobytes of static RAM, can be switched in banks of 32k
 - 32 Kilobytes of EEprom
-- 2 Serial UART ports 187.5 kBaud (Clock freqency/32):
+- 2 Serial UART ports 115.2 kBaud (Clock freqency/64):
   - Terminal emulation, (Putty works best)
   - File transfer. Files in a special folder on the PC show up as drive B>
 - EEprom provides 15 Kilobytes of file memory (drive A>). CP/M executables are started automatically after reset or power on
@@ -26,7 +26,7 @@ In contrast to its predecessor, the ZX2020, this one uses a 32 kilobyte EE Prom 
 - Load the Arduino Sketch `loader/loader.ino` into an Arduino Mega
 - Plug the Arduino Mega on the Bus connector, where it is marked on the silkscreen
 - Connect the TxB and RxB pins of the DART with Pin 0 (TX0) and 1 (RX0) of your Arduino Mega
-- Start a serial terminal emulation, for example "Putty", set 187500 Baud, 8 Bit, 1 Stopbit, no parity
+- Start a serial terminal emulation, for example "Putty", set 115200 Baud, 8 Bit, 1 Stopbit, no parity
 - On Windows, run the tool `bin/loader.exe`. Click on "ROM Image" and select the file `CPM/rom.img`
 - When a welcome message and the CP/M prompt "B>" appears on your terminal emulation, the ZX2020 is ready to use. If you have a PATA compatible hard drive connected, you need to format it under CP/M with the "mkdsk.com" tool before you can use it. Note that all data on the disk will be lost. 
 

@@ -44,7 +44,7 @@
 #define VERSION     "1.0"
 
 #define BAUDRATE (int)115200//(int)1000*CLOCK/32
-#define Z80BDRATE (int)187500
+#define Z80BDRATE (int)115200
 #define PROMFSBASE 0x4000 //Start of EEPROM file system
 
 enum TODO
